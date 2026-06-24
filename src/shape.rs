@@ -7,6 +7,17 @@ impl TensorShape {
     pub fn size(&self) -> usize {
         self.shape.iter().product()
     }
+
+    fn strides(&self) -> Vec<usize> {
+        let mut stride_list: Vec<usize> = Vec::new();
+        let mut current_stride = 1;
+        for i in self.shape.iter().rev() {
+            stride_list.push(current_stride);
+            current_stride *= i;
+        }
+        stride_list.reverse();
+        stride_list
+    }
 }
 
 #[cfg(test)]
@@ -29,5 +40,13 @@ mod tests {
     fn size_of_0() {
         let shape = TensorShape { shape: vec![] };
         assert_eq!(shape.size(), 1)
+    }
+
+    #[test]
+    fn strides_of_2x3x4() {
+        let shape = TensorShape {
+            shape: vec![2, 3, 4],
+        };
+        assert_eq!(shape.strides(), vec![12, 4, 1]);
     }
 }
