@@ -18,6 +18,16 @@ impl TensorShape {
         stride_list.reverse();
         stride_list
     }
+
+    pub fn ravel(&self, index: &Vec<usize>) -> usize {
+        index
+            .iter()
+            .zip(self.strides().iter())
+            .map(|(a, b)| *a * *b)
+            .sum()
+    }
+
+    // pub fn unravel(&self, flat_index: usize) -> Vec<usize> {}
 }
 
 #[cfg(test)]
@@ -48,5 +58,15 @@ mod tests {
             shape: vec![2, 3, 4],
         };
         assert_eq!(shape.strides(), vec![12, 4, 1]);
+    }
+
+    #[test]
+    fn ravel_2x3x4() {
+        let shape = TensorShape {
+            shape: vec![2, 3, 4],
+        };
+        assert_eq!(shape.ravel(&vec![1, 2, 3]), 23);
+        assert_eq!(shape.ravel(&vec![0, 1, 2]), 6);
+        assert_eq!(shape.ravel(&vec![0, 0, 0]), 0);
     }
 }
