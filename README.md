@@ -3,6 +3,7 @@ Starting list
 - [x] ravel_index / unravel_index (6/24/26)
 - [x] TensorStorage, zeros() (6/25/26)
 - [x] Tensor (6/25/26)
+- [ ] Index/IndexMut
 - [] reshape / transpose
 
 Later 
