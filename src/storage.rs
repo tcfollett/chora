@@ -3,16 +3,16 @@ pub struct TensorStorage<T> {
     data: Vec<T>,
 }
 
+impl<T> TensorStorage<T> {
+    pub fn new(data: Vec<T>) -> Self {
+        Self { data }
+    }
+}
+
 impl<T: Default + Clone> TensorStorage<T> {
     pub fn zeros(size: usize) -> Self {
         let zeros = vec![T::default(); size];
         Self { data: zeros }
-    }
-}
-
-impl<T> TensorStorage<T> {
-    pub fn new(data: Vec<T>) -> Self {
-        Self { data }
     }
 }
 

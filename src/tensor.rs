@@ -7,11 +7,20 @@ pub struct Tensor<T> {
     storage: TensorStorage<T>,
 }
 
+impl<T> Tensor<T> {
+    pub fn new(shape: TensorShape, data: Vec<T>) -> Self {
+        Self {
+            shape,
+            storage: TensorStorage::new(data),
+        }
+    }
+}
+
 impl<T: Default + Clone> Tensor<T> {
     pub fn zeros(shape: TensorShape) -> Self {
         let tensor_size = shape.size();
         let tensor_storage = TensorStorage::zeros(tensor_size);
-        Tensor {
+        Self {
             shape,
             storage: tensor_storage,
         }
