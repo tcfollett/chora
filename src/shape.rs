@@ -27,7 +27,16 @@ impl TensorShape {
             .sum()
     }
 
-    // pub fn unravel(&self, flat_index: usize) -> Vec<usize> {}
+    pub fn unravel(&self, flat_index: usize) -> Vec<usize> {
+        let mut remaining_value = flat_index;
+        let mut index: Vec<usize> = Vec::new();
+
+        for i in self.strides().iter() {
+            index.push(remaining_value / i);
+            remaining_value %= i;
+        }
+        index
+    }
 }
 
 #[cfg(test)]
@@ -68,5 +77,15 @@ mod tests {
         assert_eq!(shape.ravel(&vec![1, 2, 3]), 23);
         assert_eq!(shape.ravel(&vec![0, 1, 2]), 6);
         assert_eq!(shape.ravel(&vec![0, 0, 0]), 0);
+    }
+
+    #[test]
+    fn unravel_2x3x4() {
+        let shape = TensorShape {
+            shape: vec![2, 3, 4],
+        };
+        assert_eq!(shape.unravel(23), vec![1, 2, 3]);
+        assert_eq!(shape.unravel(6), vec![0, 1, 2]);
+        assert_eq!(shape.unravel(0), vec![0, 0, 0]);
     }
 }
