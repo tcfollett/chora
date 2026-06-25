@@ -1,8 +1,8 @@
 Starting list
 - [x] TensorShape, size() (6/23/26)
 - [x] ravel_index / unravel_index (6/24/26)
-- [] TensorStorage, zeros()
-- [] Index/IndexMut
+- [x] TensorStorage, zeros() (6/25/26)
+- [] Tensor
 - [] reshape / transpose
 
 Later 
