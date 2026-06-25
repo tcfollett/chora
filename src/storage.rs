@@ -10,6 +10,12 @@ impl<T: Default + Clone> TensorStorage<T> {
     }
 }
 
+impl<T> TensorStorage<T> {
+    pub fn new(data: Vec<T>) -> Self {
+        Self { data }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

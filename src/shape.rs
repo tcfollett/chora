@@ -4,6 +4,10 @@ pub struct TensorShape {
 }
 
 impl TensorShape {
+    pub fn new(shape: Vec<usize>) -> Self {
+        TensorShape { shape }
+    }
+
     pub fn size(&self) -> usize {
         self.shape.iter().product()
     }
