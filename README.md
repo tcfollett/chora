@@ -4,8 +4,8 @@ Starting list
 - [x] TensorStorage, zeros() (6/25/26)
 - [x] Tensor (6/25/26)
 - [ ] Index/IndexMut
-- [] reshape / transpose
+- [ ] reshape / transpose
 
 Later 
-- [] error handling
-- [] simple documentation
+- [ ] error handling
+- [ ] simple documentation
