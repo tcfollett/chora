@@ -7,6 +7,10 @@ impl<T> TensorStorage<T> {
     pub fn new(data: Vec<T>) -> Self {
         Self { data }
     }
+
+    pub fn read_data(&self, index: usize) -> &T {
+        &self.data[index]
+    }
 }
 
 impl<T: Default + Clone> TensorStorage<T> {
