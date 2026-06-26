@@ -1,5 +1,6 @@
 use crate::shape::TensorShape;
 use crate::storage::TensorStorage;
+use std::ops::{Index, IndexMut};
 
 #[derive(Debug, Clone)]
 pub struct Tensor<T> {
@@ -27,3 +28,15 @@ impl<T: Default + Clone> Tensor<T> {
     }
 }
 
+impl<T> Index<&[usize]> for Tensor<T> {
+    type Output = T;
+    fn index(&self, index: &[usize]) -> &Self::Output {
+        self.storage.read_data(self.shape.ravel(index))
+    }
+}
+
+impl<T> IndexMut<&[usize]> for Tensor<T> {
+    fn index_mut(&mut self, index: &[usize]) -> &mut Self::Output {
+        self.storage.write_data(self.shape.ravel(index))
+    }
+}
