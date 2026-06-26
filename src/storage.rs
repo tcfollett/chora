@@ -11,6 +11,10 @@ impl<T> TensorStorage<T> {
     pub fn read_data(&self, index: usize) -> &T {
         &self.data[index]
     }
+
+    pub fn write_data(&mut self, index: usize) -> &mut T {
+        &mut self.data[index]
+    }
 }
 
 impl<T: Default + Clone> TensorStorage<T> {

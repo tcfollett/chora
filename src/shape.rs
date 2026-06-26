@@ -23,7 +23,7 @@ impl TensorShape {
         stride_list
     }
 
-    pub fn ravel(&self, index: &Vec<usize>) -> usize {
+    pub fn ravel(&self, index: &[usize]) -> usize {
         index
             .iter()
             .zip(self.strides().iter())
