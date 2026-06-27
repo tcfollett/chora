@@ -55,7 +55,7 @@ impl<T: fmt::Display> Tensor<T> {
     // i need to see if I can simplify this
     fn print(shape: &[usize], data_slice: &[T], f: &mut Formatter<'_>) -> fmt::Result {
         if shape.len() == 1 {
-            write!(f, "{}", "[")?;
+            write!(f, "[")?;
             for (idx, val) in data_slice.iter().enumerate() {
                 if idx != 0 {
                     write!(f, ", {}", val)?;
@@ -66,7 +66,10 @@ impl<T: fmt::Display> Tensor<T> {
             write!(f, "]")?;
             Ok(())
         } else {
-            Ok(())
+            let chunk_size = shape[1..].iter().product();
+            for chunk in data_slice.chunks(chunk_size) {
+                Ok(())
+            }
         }
     }
 }
