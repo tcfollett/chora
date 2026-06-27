@@ -4,6 +4,7 @@ Starting list
 - [x] TensorStorage, zeros() (6/25/26)
 - [x] Tensor (6/25/26)
 - [x] Index/IndexMut (6/26/26)
+- [ ] Display
 - [ ] reshape / transpose
 
 Later 
