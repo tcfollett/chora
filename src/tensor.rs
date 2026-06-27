@@ -47,7 +47,7 @@ impl<T> IndexMut<&[usize]> for Tensor<T> {
 
 impl<T: fmt::Display> fmt::Display for Tensor<T> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        Tensor::print()
+        Tensor::print(self.shape.dimensions(), self.storage.slice(), f)
     }
 }
 

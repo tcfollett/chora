@@ -8,6 +8,10 @@ impl<T> TensorStorage<T> {
         Self { data }
     }
 
+    pub fn slice(&self) -> &[T] {
+        &self.data
+    }
+
     pub fn read_data(&self, index: usize) -> &T {
         &self.data[index]
     }

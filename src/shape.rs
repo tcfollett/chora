@@ -8,6 +8,10 @@ impl TensorShape {
         TensorShape { shape }
     }
 
+    pub fn dimensions(&self) -> &[usize] {
+        &self.shape
+    }
+
     pub fn size(&self) -> usize {
         self.shape.iter().product()
     }
