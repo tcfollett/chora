@@ -1,6 +1,10 @@
 use crate::shape::TensorShape;
 use crate::storage::TensorStorage;
-use std::ops::{Index, IndexMut};
+use core::fmt;
+use std::{
+    fmt::Formatter,
+    ops::{Index, IndexMut},
+};
 
 #[derive(Debug, Clone)]
 pub struct Tensor<T> {
@@ -38,5 +42,31 @@ impl<T> Index<&[usize]> for Tensor<T> {
 impl<T> IndexMut<&[usize]> for Tensor<T> {
     fn index_mut(&mut self, index: &[usize]) -> &mut Self::Output {
         self.storage.write_data(self.shape.ravel(index))
+    }
+}
+
+impl<T: fmt::Display> fmt::Display for Tensor<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        Tensor::print()
+    }
+}
+
+impl<T: fmt::Display> Tensor<T> {
+    // i need to see if I can simplify this
+    fn print(shape: &[usize], data_slice: &[T], f: &mut Formatter<'_>) -> fmt::Result {
+        if shape.len() == 1 {
+            write!(f, "{}", "[")?;
+            for (idx, val) in data_slice.iter().enumerate() {
+                if idx != 0 {
+                    write!(f, ", {}", val)?;
+                } else {
+                    write!(f, "{}", val)?;
+                }
+            }
+            write!(f, "]")?;
+            Ok(())
+        } else {
+            Ok(())
+        }
     }
 }
