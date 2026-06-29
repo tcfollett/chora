@@ -68,7 +68,11 @@ impl<T: fmt::Display> Tensor<T> {
         } else {
             write!(f, "[")?;
             let chunk_size = shape[1..].iter().product();
-            for chunk in data_slice.chunks(chunk_size) {
+            let separator = "\n".repeat(shape.len() - 1);
+            for (idx, chunk) in data_slice.chunks(chunk_size).enumerate() {
+                if idx != 0 {
+                    write!(f, ",{}", separator)?;
+                }
                 Tensor::print(&shape[1..], chunk, f)?;
             }
             write!(f, "]")?;
