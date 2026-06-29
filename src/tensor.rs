@@ -66,10 +66,13 @@ impl<T: fmt::Display> Tensor<T> {
             write!(f, "]")?;
             Ok(())
         } else {
+            write!(f, "[")?;
             let chunk_size = shape[1..].iter().product();
             for chunk in data_slice.chunks(chunk_size) {
-                Ok(())
+                Tensor::print(&shape[1..], chunk, f)?;
             }
+            write!(f, "]")?;
+            Ok(())
         }
     }
 }
