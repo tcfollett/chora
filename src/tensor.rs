@@ -24,8 +24,30 @@ fn strides(shape: &[usize]) -> Vec<usize> {
 }
 
 impl<B: Backend> Tensor<B> {
+    // returns shape of tensor
     fn shape(&self) -> &[usize] {
         &self.shape
+    }
+
+    // converts a multidim index into a flat index
+    fn ravel(&self, index: &[usize]) -> usize {
+        index
+            .iter()
+            .zip(self.strides.iter())
+            .map(|(a, b)| *a * *b)
+            .sum()
+    }
+
+    // converts a flat index into multidim index
+    fn unravel(&self, flat_index: usize) -> Vec<usize> {
+        let mut remaining_value = flat_index;
+        let mut index: Vec<usize> = Vec::new();
+
+        for i in self.strides.iter() {
+            index.push(remaining_value / i);
+            remaining_value %= i;
+        }
+        index
     }
 
     // creates a new tensor filled with zeros for the given shape
@@ -35,6 +57,44 @@ impl<B: Backend> Tensor<B> {
             strides: strides(shape),
             data: B::zeros(shape),
             backend: B::default(),
+        }
+    }
+
+    // gets a element from a tensor
+    fn get(&self, index: &[usize]) -> Result<f32, TensorError> {
+        let out_of_bounds = index.iter().zip(self.shape.iter()).any(|(i, s)| i >= s);
+        if index.len() != self.shape.len() {
+            return Err(TensorError::OutOfBounds {
+                index: index.to_vec(),
+                shape: self.shape.clone(),
+            });
+        } else if out_of_bounds {
+            return Err(TensorError::OutOfBounds {
+                index: index.to_vec(),
+                shape: self.shape.clone(),
+            });
+        } else {
+            let flat_index = self.ravel(index);
+            Ok(B::read_element(&self.data, flat_index))
+        }
+    }
+
+    // writes an value to an element of a tensor
+    fn set(&mut self, index: &[usize], value: f32) -> Result<(), TensorError> {
+        let out_of_bounds = index.iter().zip(self.shape.iter()).any(|(i, s)| i >= s);
+        if index.len() != self.shape.len() {
+            return Err(TensorError::OutOfBounds {
+                index: index.to_vec(),
+                shape: self.shape.clone(),
+            });
+        } else if out_of_bounds {
+            return Err(TensorError::OutOfBounds {
+                index: index.to_vec(),
+                shape: self.shape.clone(),
+            });
+        } else {
+            let flat_index = self.ravel(index);
+            Ok(B::write_element(&mut self.data, flat_index, value))
         }
     }
 }
