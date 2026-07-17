@@ -27,4 +27,14 @@ impl<B: Backend> Tensor<B> {
     fn shape(&self) -> &[usize] {
         &self.shape
     }
+
+    // creates a new tensor filled with zeros for the given shape
+    fn zeros(shape: &[usize]) -> Self {
+        Tensor {
+            shape: shape.to_vec(),
+            strides: strides(shape),
+            data: B::zeros(shape),
+            backend: B::default(),
+        }
+    }
 }
