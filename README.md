@@ -10,10 +10,10 @@ src/
     gpu.rs   GPU backend (planned)
   ops/       tensor operations
     mod.rs 
-    elementwise.rs  elementwise ops
-    matmul.rs       matrix multiplication
-    reduce.rs       reduction ops
-    unary.rs        unary ops
+    elementwise.rs   elementwise ops
+    matmul.rs        matrix multiplication
+    reduce.rs        reduction ops
+    unary.rs         unary ops
   tensor.rs  Tensor struct
   error.rs   error types
   lib.rs
