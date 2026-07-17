@@ -1,4 +1,3 @@
-// neg, abs, sqrt, exp, ln
 use crate::{backend::Backend, tensor::Tensor};
 
 // returns a new tensor with each element negated
