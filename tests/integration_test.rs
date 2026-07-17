@@ -105,3 +105,5 @@ fn absolute_value() {
     assert_eq!(abs_t.get(&[1, 0]).unwrap(), 3.0);
     assert_eq!(abs_t.get(&[1, 1]).unwrap(), 4.0);
 }
+
+// write tests for rest of unary ops

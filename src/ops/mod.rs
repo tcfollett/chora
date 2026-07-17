@@ -8,4 +8,4 @@ mod matmul;
 mod reduce;
 mod unary;
 
-pub use unary::{abs, neg};
+pub use unary::{abs, exp, ln, neg, sqrt, square};
