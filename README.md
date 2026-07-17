@@ -29,3 +29,11 @@ July 16, 2026
 - implemented error types
 - decided to hold off on Display trait for Tensors
 - started ops
+
+July 17, 2026
+- Created storage(), from_storage(), map(), binary_map() to assist ops
+  - storage() returns the storage of a tensor
+  - from_storage() creates a tensor from existing shape and data
+  - map() maps a function to the elements of a tensor
+  - binary_map() takes two tensors, zips them together, applies some function to the two elements, and then collects the elements and wraps them in a new tensor
+- created elementwise and reduction ops
