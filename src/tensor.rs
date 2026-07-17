@@ -97,4 +97,14 @@ impl<B: Backend> Tensor<B> {
             Ok(B::write_element(&mut self.data, flat_index, value))
         }
     }
+
+    // creates a new tensor filled with ones for the given shape
+    fn ones(shape: &[usize]) -> Self {
+        Tensor {
+            shape: shape.to_vec(),
+            strides: strides(shape),
+            data: B::ones(shape),
+            backend: B::default(),
+        }
+    }
 }

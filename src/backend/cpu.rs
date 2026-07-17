@@ -20,4 +20,8 @@ impl Backend for CpuBackend {
     fn write_element(storage: &mut Self::Storage, index: usize, value: f32) {
         storage[index] = value;
     }
+
+    fn ones(shape: &[usize]) -> Vec<f32> {
+        vec![1.0; shape.iter().product()]
+    }
 }
