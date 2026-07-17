@@ -32,4 +32,15 @@ impl Backend for CpuBackend {
     fn map(storage: &Self::Storage, function: impl Fn(f32) -> f32) -> Vec<f32> {
         storage.iter().map(|x| function(*x)).collect()
     }
+
+    fn binary_map(
+        a: &Self::Storage,
+        b: &Self::Storage,
+        function: impl Fn(f32, f32) -> f32,
+    ) -> Vec<f32> {
+        a.iter()
+            .zip(b.iter())
+            .map(|(a, b)| function(*a, *b))
+            .collect()
+    }
 }
