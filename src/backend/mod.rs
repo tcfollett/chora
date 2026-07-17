@@ -2,6 +2,8 @@
 // cpu and gpu should implement backend
 // associated storages
 
+pub mod cpu;
+
 pub trait Backend: Clone + Default {
     type Storage: Clone;
 
