@@ -85,3 +85,23 @@ fn unravel_is_inverse_of_ravel() {
         }
     }
 }
+
+#[test]
+fn negative_value() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let neg_t = chora::neg(&t);
+    assert_eq!(neg_t.get(&[0, 0]).unwrap(), -1.0);
+    assert_eq!(neg_t.get(&[0, 1]).unwrap(), -2.0);
+    assert_eq!(neg_t.get(&[1, 0]).unwrap(), -3.0);
+    assert_eq!(neg_t.get(&[1, 1]).unwrap(), -4.0);
+}
+
+#[test]
+fn absolute_value() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![-1.0, 2.0, -3.0, 4.0]).unwrap();
+    let abs_t = chora::abs(&t);
+    assert_eq!(abs_t.get(&[0, 0]).unwrap(), 1.0);
+    assert_eq!(abs_t.get(&[0, 1]).unwrap(), 2.0);
+    assert_eq!(abs_t.get(&[1, 0]).unwrap(), 3.0);
+    assert_eq!(abs_t.get(&[1, 1]).unwrap(), 4.0);
+}
