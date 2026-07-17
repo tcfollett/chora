@@ -12,4 +12,5 @@ pub trait Backend: Clone + Default {
     fn write_element(storage: &mut Self::Storage, index: usize, value: f32);
     fn ones(shape: &[usize]) -> Self::Storage;
     fn from_vec(data: Vec<f32>) -> Self::Storage;
+    fn map(storage: &Self::Storage, function: impl Fn(f32) -> f32) -> Self::Storage;
 }

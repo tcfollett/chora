@@ -28,4 +28,8 @@ impl Backend for CpuBackend {
     fn from_vec(data: Vec<f32>) -> Vec<f32> {
         data
     }
+
+    fn map(storage: &Self::Storage, function: impl Fn(f32) -> f32) -> Vec<f32> {
+        storage.iter().map(|x| function(*x)).collect()
+    }
 }
