@@ -3,7 +3,7 @@
 
 use crate::backend::Backend;
 
-#[derive(Clone, Default)]
+#[derive(Clone, Default, Debug, PartialEq)]
 pub struct CpuBackend;
 
 impl Backend for CpuBackend {

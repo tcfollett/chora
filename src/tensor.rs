@@ -5,6 +5,7 @@
 // trait impls like Clone, Debug, PartialEq, and Display
 use crate::{backend::Backend, error::TensorError};
 
+#[derive(Clone, Default, Debug, PartialEq)]
 pub struct Tensor<B: Backend> {
     shape: Vec<usize>,
     strides: Vec<usize>,
