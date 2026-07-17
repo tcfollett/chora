@@ -25,6 +25,21 @@ fn strides(shape: &[usize]) -> Vec<usize> {
 }
 
 impl<B: Backend> Tensor<B> {
+    // returns storage of tensor
+    pub(crate) fn storage(&self) -> &B::Storage {
+        &self.data
+    }
+
+    // makes a tensor from existing shape and data
+    pub(crate) fn from_storage(shape: &[usize], data: B::Storage) -> Self {
+        Tensor {
+            shape: shape.to_vec(),
+            strides: strides(shape),
+            data,
+            backend: B::default(),
+        }
+    }
+
     // returns shape of tensor
     pub fn shape(&self) -> &[usize] {
         &self.shape
