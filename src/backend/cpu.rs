@@ -24,4 +24,8 @@ impl Backend for CpuBackend {
     fn ones(shape: &[usize]) -> Vec<f32> {
         vec![1.0; shape.iter().product()]
     }
+
+    fn from_vec(data: Vec<f32>) -> Vec<f32> {
+        data
+    }
 }

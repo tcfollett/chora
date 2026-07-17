@@ -3,7 +3,7 @@
 // tensor struct will hold shape, strides, and storage (from backend)
 // also have contructors like zeros(), ones(), new()
 // trait impls like Clone, Debug, PartialEq, and Display
-use crate::backend::Backend;
+use crate::{backend::Backend, error::TensorError};
 
 pub struct Tensor<B: Backend> {
     shape: Vec<usize>,
@@ -105,6 +105,23 @@ impl<B: Backend> Tensor<B> {
             strides: strides(shape),
             data: B::ones(shape),
             backend: B::default(),
+        }
+    }
+
+    // creates a new tensor filled with data from a vec
+    fn from_vec(shape: &[usize], data: Vec<f32>) -> Result<Self, TensorError> {
+        if data.len() != shape.iter().product() {
+            return Err(TensorError::DataShapeMismatch {
+                data: data.len(),
+                shape: shape.to_vec(),
+            });
+        } else {
+            Ok(Tensor {
+                shape: shape.to_vec(),
+                strides: strides(shape),
+                data: B::from_vec(data),
+                backend: B::default(),
+            })
         }
     }
 }
