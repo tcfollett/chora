@@ -1,4 +1,3 @@
-// Define backend trait
 // cpu and gpu should implement backend
 // associated storages
 pub mod cpu;

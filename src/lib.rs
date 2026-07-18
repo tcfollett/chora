@@ -1,5 +1,3 @@
-// public API
-
 mod backend;
 mod error;
 mod ops;
