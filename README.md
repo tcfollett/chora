@@ -41,15 +41,15 @@ July 17, 2026
 July 18, 2026
 
 TODOS
-- [ ] from_storage() needs to validate data.len() == shape element count
-- [ ] fix ops which are closure based
+- [x] from_storage() needs to validate data.len() == shape element count
+- [x] fix ops which are closure based
   - need per op Backend methods because closures cant run on GPU
   1. replace all ops that have closures
   2. remove map() and binary_map() and add one method for each op in Backend
   3. update CpuBackend with same logic as map but with fixed functions
   4. change ops to call methods
-- [ ] unary edge cases like sqrt of negative
-- [ ] division by zero handling
+- [x] unary edge cases like sqrt of negative (going to let this go to NaN)
+- [x] division by zero handling (going to let this go to inf)
 - [ ] reducuction operations
 - [ ] matrix multiplication
 - [ ] broadcasting
