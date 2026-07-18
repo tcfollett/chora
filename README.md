@@ -37,3 +37,22 @@ July 17, 2026
   - map() maps a function to the elements of a tensor
   - binary_map() takes two tensors, zips them together, applies some function to the two elements, and then collects the elements and wraps them in a new tensor
 - created elementwise and reduction ops
+
+July 18, 2026
+
+TODOS
+- [ ] from_storage() needs to validate data.len() == shape element count
+- [ ] fix ops which are closure based
+  - need per op Backend methods because closures cant run on GPU
+  1. replace all ops that have closures
+  2. remove map() and binary_map() and add one method for each op in Backend
+  3. update CpuBackend with same logic as map but with fixed functions
+  4. change ops to call methods
+- [ ] unary edge cases like sqrt of negative
+- [ ] division by zero handling
+- [ ] reducuction operations
+- [ ] matrix multiplication
+- [ ] broadcasting
+- [ ] reshape
+- [ ] unary operation tests
+- [ ] Display trait for tensors
