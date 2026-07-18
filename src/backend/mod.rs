@@ -1,7 +1,7 @@
 // Define backend trait
 // cpu and gpu should implement backend
 // associated storages
-
+use crate::error::TensorError;
 pub mod cpu;
 
 pub trait Backend: Clone + Default {
@@ -19,11 +19,19 @@ pub trait Backend: Clone + Default {
 
     fn from_vec(data: Vec<f32>) -> Self::Storage;
 
-    fn map(storage: &Self::Storage, function: impl Fn(f32) -> f32) -> Self::Storage;
+    // unary ops
 
-    fn binary_map(
-        a: &Self::Storage,
-        b: &Self::Storage,
-        function: impl Fn(f32, f32) -> f32,
-    ) -> Self::Storage;
+    fn neg(storage: &Self::Storage) -> Self::Storage;
+    fn abs(storage: &Self::Storage) -> Self::Storage;
+    fn sqrt(storage: &Self::Storage) -> Self::Storage;
+    fn square(storage: &Self::Storage) -> Self::Storage;
+    fn ln(storage: &Self::Storage) -> Self::Storage;
+    fn exp(storage: &Self::Storage) -> Self::Storage;
+
+    // elementwise ops
+
+    fn add(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
+    fn sub(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
+    fn mult(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
+    fn div(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
 }

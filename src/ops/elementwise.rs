@@ -8,8 +8,8 @@ pub fn add<B: Backend>(a: &Tensor<B>, b: &Tensor<B>) -> Result<Tensor<B>, Tensor
             shape2: b.shape().to_vec(),
         });
     } else {
-        let new_data = B::binary_map(a.storage(), b.storage(), |a, b| a + b);
-        Ok(Tensor::from_storage(a.shape(), new_data))
+        let new_data = B::add(a.storage(), b.storage());
+        Tensor::from_storage(a.shape(), new_data)
     }
 }
 
@@ -21,8 +21,8 @@ pub fn sub<B: Backend>(a: &Tensor<B>, b: &Tensor<B>) -> Result<Tensor<B>, Tensor
             shape2: b.shape().to_vec(),
         });
     } else {
-        let new_data = B::binary_map(a.storage(), b.storage(), |a, b| a - b);
-        Ok(Tensor::from_storage(a.shape(), new_data))
+        let new_data = B::sub(a.storage(), b.storage());
+        Tensor::from_storage(a.shape(), new_data)
     }
 }
 
@@ -34,8 +34,8 @@ pub fn mult<B: Backend>(a: &Tensor<B>, b: &Tensor<B>) -> Result<Tensor<B>, Tenso
             shape2: b.shape().to_vec(),
         });
     } else {
-        let new_data = B::binary_map(a.storage(), b.storage(), |a, b| a * b);
-        Ok(Tensor::from_storage(a.shape(), new_data))
+        let new_data = B::mult(a.storage(), b.storage());
+        Tensor::from_storage(a.shape(), new_data)
     }
 }
 
@@ -47,7 +47,7 @@ pub fn div<B: Backend>(a: &Tensor<B>, b: &Tensor<B>) -> Result<Tensor<B>, Tensor
             shape2: b.shape().to_vec(),
         });
     } else {
-        let new_data = B::binary_map(a.storage(), b.storage(), |a, b| a / b);
-        Ok(Tensor::from_storage(a.shape(), new_data))
+        let new_data = B::div(a.storage(), b.storage());
+        Tensor::from_storage(a.shape(), new_data)
     }
 }

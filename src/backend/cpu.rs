@@ -1,7 +1,7 @@
 // storage will be a plain vec
 // start with loops and look into rayon later
 
-use crate::backend::Backend;
+use crate::{TensorError, backend::Backend};
 
 #[derive(Clone, Default, Debug, PartialEq)]
 pub struct CpuBackend;
@@ -33,18 +33,47 @@ impl Backend for CpuBackend {
         data
     }
 
-    fn map(storage: &Self::Storage, function: impl Fn(f32) -> f32) -> Vec<f32> {
-        storage.iter().map(|x| function(*x)).collect()
+    // unary ops
+
+    fn neg(storage: &Self::Storage) -> Vec<f32> {
+        storage.iter().map(|x| -x).collect()
     }
 
-    fn binary_map(
-        a: &Self::Storage,
-        b: &Self::Storage,
-        function: impl Fn(f32, f32) -> f32,
-    ) -> Vec<f32> {
-        a.iter()
-            .zip(b.iter())
-            .map(|(a, b)| function(*a, *b))
-            .collect()
+    fn abs(storage: &Self::Storage) -> Vec<f32> {
+        storage.iter().map(|x| x.abs()).collect()
+    }
+
+    fn sqrt(storage: &Self::Storage) -> Vec<f32> {
+        storage.iter().map(|x| x.sqrt()).collect()
+    }
+
+    fn square(storage: &Self::Storage) -> Vec<f32> {
+        storage.iter().map(|x| x * x).collect()
+    }
+
+    fn ln(storage: &Self::Storage) -> Vec<f32> {
+        storage.iter().map(|x| x.ln()).collect()
+    }
+
+    fn exp(storage: &Self::Storage) -> Vec<f32> {
+        storage.iter().map(|x| x.exp()).collect()
+    }
+
+    // elementwise ops
+
+    fn add(a: &Self::Storage, b: &Self::Storage) -> Vec<f32> {
+        a.iter().zip(b.iter()).map(|(a, b)| a + b).collect()
+    }
+
+    fn sub(a: &Self::Storage, b: &Self::Storage) -> Vec<f32> {
+        a.iter().zip(b.iter()).map(|(a, b)| a - b).collect()
+    }
+
+    fn mult(a: &Self::Storage, b: &Self::Storage) -> Vec<f32> {
+        a.iter().zip(b.iter()).map(|(a, b)| a * b).collect()
+    }
+
+    fn div(a: &Self::Storage, b: &Self::Storage) -> Vec<f32> {
+        a.iter().zip(b.iter()).map(|(a, b)| a / b).collect()
     }
 }
