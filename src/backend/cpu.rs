@@ -1,7 +1,7 @@
 // storage will be a plain vec
 // start with loops and look into rayon later
 
-use crate::{TensorError, backend::Backend};
+use crate::backend::Backend;
 
 #[derive(Clone, Default, Debug, PartialEq)]
 pub struct CpuBackend;
