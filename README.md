@@ -50,7 +50,7 @@ TODOS
   4. change ops to call methods
 - [x] unary edge cases like sqrt of negative (going to let this go to NaN)
 - [x] division by zero handling (going to let this go to inf)
-- [ ] reducuction operations
+- [ ] reduction operations
 - [ ] matrix multiplication
 - [ ] broadcasting
 - [ ] reshape
