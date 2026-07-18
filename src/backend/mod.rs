@@ -7,6 +7,8 @@ pub mod cpu;
 pub trait Backend: Clone + Default {
     type Storage: Clone;
 
+    fn length(storage: &Self::Storage) -> usize;
+
     fn zeros(shape: &[usize]) -> Self::Storage;
 
     fn read_element(storage: &Self::Storage, index: usize) -> f32;
