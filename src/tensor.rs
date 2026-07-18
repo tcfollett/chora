@@ -31,12 +31,19 @@ impl<B: Backend> Tensor<B> {
     }
 
     // makes a tensor from existing shape and data
-    pub(crate) fn from_storage(shape: &[usize], data: B::Storage) -> Self {
-        Tensor {
-            shape: shape.to_vec(),
-            strides: strides(shape),
-            data,
-            backend: B::default(),
+    pub(crate) fn from_storage(shape: &[usize], data: B::Storage) -> Result<Self, TensorError> {
+        if B::length(&data) != shape.iter().product() {
+            return Err(TensorError::DataShapeMismatch {
+                data: B::length(&data),
+                shape: shape.to_vec(),
+            });
+        } else {
+            Ok(Tensor {
+                shape: shape.to_vec(),
+                strides: strides(shape),
+                data,
+                backend: B::default(),
+            })
         }
     }
 
