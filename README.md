@@ -51,6 +51,7 @@ TODOS
 - [x] unary edge cases like sqrt of negative (going to let this go to NaN)
 - [x] division by zero handling (going to let this go to inf)
 - [ ] reduction operations
+  - these will need to be changed to per axis later
 - [ ] matrix multiplication
 - [x] reshape
 - [x] unary operation tests
