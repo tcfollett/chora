@@ -145,6 +145,7 @@ impl<B: Backend> Tensor<B> {
         }
     }
 
+    // changes the shape of an existing tensor
     pub fn reshape(&self, new_shape: &[usize]) -> Result<Self, TensorError> {
         if B::length(&self.data) != new_shape.iter().product() {
             Err(TensorError::DataShapeMismatch {
