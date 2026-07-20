@@ -52,9 +52,8 @@ TODOS
 - [x] division by zero handling (going to let this go to inf)
 - [ ] reduction operations
 - [ ] matrix multiplication
-- [ ] broadcasting
-- [ ] reshape
-- [ ] unary operation tests
+- [x] reshape
+- [x] unary operation tests
 - [ ] Display trait for tensors
 
 July 19, 2026
