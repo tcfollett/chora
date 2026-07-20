@@ -56,3 +56,6 @@ TODOS
 - [ ] reshape
 - [ ] unary operation tests
 - [ ] Display trait for tensors
+
+July 19, 2026
+- need to add operation overloading (+, -, *, /)
