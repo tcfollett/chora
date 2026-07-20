@@ -144,4 +144,20 @@ impl<B: Backend> Tensor<B> {
             })
         }
     }
+
+    pub fn reshape(&self, new_shape: &[usize]) -> Result<Self, TensorError> {
+        if B::length(&self.data) != new_shape.iter().product() {
+            Err(TensorError::DataShapeMismatch {
+                data: B::length(&self.data),
+                shape: new_shape.to_vec(),
+            })
+        } else {
+            Ok(Tensor {
+                shape: new_shape.to_vec(),
+                strides: strides(new_shape),
+                data: self.data.clone(),
+                backend: B::default(),
+            })
+        }
+    }
 }
