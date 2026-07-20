@@ -30,10 +30,10 @@ impl<B: Backend> Tensor<B> {
     // makes a tensor from existing shape and data
     pub(crate) fn from_storage(shape: &[usize], data: B::Storage) -> Result<Self, TensorError> {
         if B::length(&data) != shape.iter().product() {
-            return Err(TensorError::DataShapeMismatch {
+            Err(TensorError::DataShapeMismatch {
                 data: B::length(&data),
                 shape: shape.to_vec(),
-            });
+            })
         } else {
             Ok(Tensor {
                 shape: shape.to_vec(),
@@ -84,15 +84,15 @@ impl<B: Backend> Tensor<B> {
     pub fn get(&self, index: &[usize]) -> Result<f32, TensorError> {
         let out_of_bounds = index.iter().zip(self.shape.iter()).any(|(i, s)| i >= s);
         if index.len() != self.shape.len() {
-            return Err(TensorError::OutOfBounds {
+            Err(TensorError::OutOfBounds {
                 index: index.to_vec(),
                 shape: self.shape.clone(),
-            });
+            })
         } else if out_of_bounds {
-            return Err(TensorError::OutOfBounds {
+            Err(TensorError::OutOfBounds {
                 index: index.to_vec(),
                 shape: self.shape.clone(),
-            });
+            })
         } else {
             let flat_index = self.ravel(index);
             Ok(B::read_element(&self.data, flat_index))
@@ -103,15 +103,15 @@ impl<B: Backend> Tensor<B> {
     pub fn set(&mut self, index: &[usize], value: f32) -> Result<(), TensorError> {
         let out_of_bounds = index.iter().zip(self.shape.iter()).any(|(i, s)| i >= s);
         if index.len() != self.shape.len() {
-            return Err(TensorError::OutOfBounds {
+            Err(TensorError::OutOfBounds {
                 index: index.to_vec(),
                 shape: self.shape.clone(),
-            });
+            })
         } else if out_of_bounds {
-            return Err(TensorError::OutOfBounds {
+            Err(TensorError::OutOfBounds {
                 index: index.to_vec(),
                 shape: self.shape.clone(),
-            });
+            })
         } else {
             let flat_index = self.ravel(index);
             Ok(B::write_element(&mut self.data, flat_index, value))
@@ -131,10 +131,10 @@ impl<B: Backend> Tensor<B> {
     // creates a new tensor filled with data from a vec
     pub fn from_vec(shape: &[usize], data: Vec<f32>) -> Result<Self, TensorError> {
         if data.len() != shape.iter().product() {
-            return Err(TensorError::DataShapeMismatch {
+            Err(TensorError::DataShapeMismatch {
                 data: data.len(),
                 shape: shape.to_vec(),
-            });
+            })
         } else {
             Ok(Tensor {
                 shape: shape.to_vec(),
