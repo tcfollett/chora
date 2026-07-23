@@ -62,3 +62,11 @@ July 19, 2026
 
 July 23, 2026
 - Display trait for Tensors to help in debugging operations later
+- TensorError needs to implement Error trait
+
+TODOS before GPU
+- [ ] TensorError fix with Error trait
+- [ ] operation overloading for basic ops like Add, Sub, Mult, Div, and Neg
+- [ ] broadcasting??
+- [ ] tests for CPU
+- [ ] Backend error handling
