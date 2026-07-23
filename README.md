@@ -59,3 +59,6 @@ TODOS
 
 July 19, 2026
 - need to add operation overloading (+, -, *, /)
+
+July 23, 2026
+- Display trait for Tensors to help in debugging operations later
