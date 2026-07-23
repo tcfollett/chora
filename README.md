@@ -55,7 +55,7 @@ TODOS
 - [ ] matrix multiplication
 - [x] reshape
 - [x] unary operation tests
-- [ ] Display trait for tensors
+- [x] Display trait for tensors
 
 July 19, 2026
 - need to add operation overloading (+, -, *, /)
