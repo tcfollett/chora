@@ -1,6 +1,8 @@
 // Tensor struct
 
 use crate::{backend::Backend, error::TensorError};
+use core::fmt;
+use std::fmt::Formatter;
 
 #[derive(Clone, Default, Debug, PartialEq)]
 pub struct Tensor<B: Backend> {
@@ -160,5 +162,34 @@ impl<B: Backend> Tensor<B> {
                 backend: B::default(),
             })
         }
+    }
+
+    // prints a tensor
+    fn print(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        let total_elements = self.shape().iter().product();
+        for j in 0..total_elements {
+            let index = self.unravel(j);
+            let open_count = index.iter().rev().take_while(|&&x| x == 0).count();
+            let close_count = index
+                .iter()
+                .zip(self.shape().iter())
+                .rev()
+                .take_while(|&(&i, &s)| i == s - 1)
+                .count();
+            let value = self.get(&index).unwrap();
+            write!(f, "{}", "[".repeat(open_count))?;
+            write!(f, "{}", value)?;
+            write!(f, "{}", "]".repeat(close_count))?;
+            if j != total_elements - 1 {
+                write!(f, ", ")?;
+            }
+        }
+        Ok(())
+    }
+}
+
+impl<B: Backend> fmt::Display for Tensor<B> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        self.print(f)
     }
 }
