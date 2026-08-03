@@ -32,4 +32,10 @@ pub trait Backend: Clone + Default {
     fn sub(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
     fn mult(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
     fn div(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
+
+    // reduction ops
+    fn sum(storage: &Self::Storage, shape: &[usize], axis: Option<usize>) -> Self::Storage;
+    fn mean(storage: &Self::Storage, shape: &[usize], axis: Option<usize>) -> Self::Storage;
+    fn max(storage: &Self::Storage, shape: &[usize], axis: Option<usize>) -> Self::Storage;
+    fn min(storage: &Self::Storage, shape: &[usize], axis: Option<usize>) -> Self::Storage;
 }
