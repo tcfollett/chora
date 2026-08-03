@@ -12,7 +12,7 @@ pub struct Tensor<B: Backend> {
     backend: B,
 }
 
-fn strides(shape: &[usize]) -> Vec<usize> {
+pub(crate) fn strides(shape: &[usize]) -> Vec<usize> {
     let mut stride_list = Vec::with_capacity(shape.len());
     let mut current_stride = 1;
     for i in shape.iter().rev() {
