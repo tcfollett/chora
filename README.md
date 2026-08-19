@@ -69,3 +69,6 @@ TODOS before GPU
 - [ ] broadcasting??
 - [ ] tests for CPU
 - [ ] Backend error handling
+
+Aug 19, 2026
+- have taken a pause to learn the basics of GPU programming (CUDA then wgpu)
