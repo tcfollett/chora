@@ -191,3 +191,78 @@ fn exponential() {
     assert_eq!(exp_t.get(&[0]).unwrap(), 1.0);
     assert!((exp_t.get(&[1]).unwrap() - std::f32::consts::E).abs() < 1e-6);
 }
+
+#[test]
+fn matmul_multiplies_two_matrices() {
+    let a: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let b: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![5.0, 6.0, 7.0, 8.0]).unwrap();
+    let c = chora::matmul(&a, &b).unwrap();
+    assert_eq!(c.shape(), &[2, 2]);
+    assert_eq!(c.get(&[0, 0]).unwrap(), 19.0);
+    assert_eq!(c.get(&[0, 1]).unwrap(), 22.0);
+    assert_eq!(c.get(&[1, 0]).unwrap(), 43.0);
+    assert_eq!(c.get(&[1, 1]).unwrap(), 50.0);
+}
+
+#[test]
+fn get_rejects_out_of_bounds_index2() {
+    let t: Tensor<CpuBackend> = Tensor::zeros(&[2, 2]);
+    let result = t.get(&[2, 0]);
+    assert!(matches!(result, Err(TensorError::OutOfBounds { .. })));
+}
+
+#[test]
+fn sum_sums_all_elements() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let result = chora::sum(&t, None).unwrap();
+    assert_eq!(result.get(&[0]).unwrap(), 10.0);
+}
+
+#[test]
+fn mean_returns_average_of_all_elements() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let result = chora::mean(&t, None).unwrap();
+    assert_eq!(result.get(&[0]).unwrap(), 2.5);
+}
+
+#[test]
+fn max_returns_largest_element() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 4.0, 3.0, 2.0]).unwrap();
+    let result = chora::max(&t, None).unwrap();
+    assert_eq!(result.get(&[0]).unwrap(), 4.0);
+}
+
+#[test]
+fn min_returns_smallest_element() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![4.0, 1.0, 3.0, 2.0]).unwrap();
+    let result = chora::min(&t, None).unwrap();
+    assert_eq!(result.get(&[0]).unwrap(), 1.0);
+}
+
+#[test]
+fn sum_rejects_invalid_axis() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let result = chora::sum(&t, Some(5));
+    assert!(matches!(result, Err(TensorError::InvalidAxis { .. })));
+}
+
+#[test]
+fn mean_rejects_invalid_axis() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let result = chora::mean(&t, Some(5));
+    assert!(matches!(result, Err(TensorError::InvalidAxis { .. })));
+}
+
+#[test]
+fn max_rejects_invalid_axis() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let result = chora::max(&t, Some(5));
+    assert!(matches!(result, Err(TensorError::InvalidAxis { .. })));
+}
+
+#[test]
+fn min_rejects_invalid_axis() {
+    let t: Tensor<CpuBackend> = Tensor::from_vec(&[2, 2], vec![1.0, 2.0, 3.0, 4.0]).unwrap();
+    let result = chora::min(&t, Some(5));
+    assert!(matches!(result, Err(TensorError::InvalidAxis { .. })));
+}
