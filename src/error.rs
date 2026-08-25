@@ -14,6 +14,6 @@ pub enum TensorError {
     }, // data does not fit the shape of the tensor
     InvalidAxis {
         axis: usize,
-        ndim: Vec<usize>,
+        shape: Vec<usize>,
     }, // axis numnber does not fit the number of dimensions
 }
