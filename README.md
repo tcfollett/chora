@@ -66,9 +66,12 @@ July 23, 2026
 TODOS before GPU
 - [ ] TensorError fix with Error trait
 - [ ] operation overloading for basic ops like Add, Sub, Mult, Div, and Neg
-- [ ] broadcasting??
 - [ ] tests for CPU
 - [ ] Backend error handling
 
 Aug 19, 2026
 - have taken a pause to learn the basics of GPU programming (CUDA then wgpu)
+
+Aug 25, 2026
+- finished reduction operations
+- todos will be in the order: matmul -> TensorError -> tests -> backend errors
