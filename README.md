@@ -51,7 +51,7 @@ TODOS
 - [x] unary edge cases like sqrt of negative (going to let this go to NaN)
 - [x] division by zero handling (going to let this go to inf)
 - [x] reduction operations
-- [ ] matrix multiplication
+- [x] matrix multiplication
 - [x] reshape
 - [x] unary operation tests
 - [x] Display trait for tensors
@@ -74,4 +74,5 @@ Aug 19, 2026
 
 Aug 25, 2026
 - finished reduction operations
-- todos will be in the order: matmul -> TensorError -> tests -> backend errors
+- todos will be in the order: matmul -> TensorError -> operation overloading -> tests -> backend errors
+- will look into batching for <2D matmul
