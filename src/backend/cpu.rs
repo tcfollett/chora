@@ -235,5 +235,24 @@ impl Backend for CpuBackend {
 
     // matmul
 
-    fn matmul(a: &Self::Storage, b: &Self::Storage) -> Vec<f32> {}
+    fn matmul(
+        a: &Self::Storage,
+        b: &Self::Storage,
+        a_shape: &[usize],
+        b_shape: &[usize],
+    ) -> Vec<f32> {
+        let m = a_shape[0];
+        let n = a_shape[1];
+        let p = b_shape[1];
+        let mut output = vec![0.0; m * p];
+
+        for i in 0..m {
+            for j in 0..p {
+                for k in 0..n {
+                    output[i * p + j] += a[i * n + k] * b[k * p + j];
+                }
+            }
+        }
+        output
+    }
 }

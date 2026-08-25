@@ -40,5 +40,10 @@ pub trait Backend: Clone + Default {
     fn min(storage: &Self::Storage, shape: &[usize], axis: Option<usize>) -> Self::Storage;
 
     // matmul
-    fn matmul(a: &Self::Storage, b: &Self::Storage) -> Self::Storage;
+    fn matmul(
+        a: &Self::Storage,
+        b: &Self::Storage,
+        a_shape: &[usize],
+        b_shape: &[usize],
+    ) -> Self::Storage;
 }
