@@ -1,5 +1,6 @@
 mod elementwise;
 mod matmul;
+mod operators;
 mod reduce;
 mod unary;
 
