@@ -1,5 +1,5 @@
-# chora ![Status](https://badgen.net)
-A minimal tensor library in Rust. Personal learning project. *CURRENTLY PAUSED*
+# chora *CURRENTLY PAUSED*
+A minimal tensor library in Rust. Personal learning project. 
 
 ## Structure
 ```
