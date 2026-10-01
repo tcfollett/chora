@@ -1,4 +1,4 @@
-# chora ![Status](https://shields.io)
+# chora ![Status](https://badgen.net)
 A minimal tensor library in Rust. Personal learning project. *CURRENTLY PAUSED*
 
 ## Structure
