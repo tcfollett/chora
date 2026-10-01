@@ -1,5 +1,5 @@
 # chora
-A minimal tensor library in Rust. Personal learning project.
+A minimal tensor library in Rust. Personal learning project. *CURRENTLY PAUSED*
 
 ## Structure
 ```
